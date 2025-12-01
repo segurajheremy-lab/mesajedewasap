@@ -7,14 +7,14 @@ CONTACTO = os.getenv("CONTACTO")
 MENSAJE = os.getenv("MENSAJE")
 async def main():
     if not CONTACTO or not MENSAJE:
-        print("no pusiste en contacto(exacto del wasap) o mensaje especifico")
+        print("no definiste bien el contacto o el mensaje")
         return
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=False)
         context = await browser.new_context()
         page = await context.new_page()
         await page.goto("https://web.whatsapp.com")
-        print("escanea el QR y dale enter pe")
+        print("escanea en QR manito y dale al enter")
         input()
         search_selector = 'div[contenteditable="true"][data-tab="3"]'
         await page.wait_for_selector(search_selector)
@@ -25,7 +25,8 @@ async def main():
         await page.wait_for_selector(msg_selector)
         await page.fill(msg_selector, MENSAJE)
         await page.keyboard.press("Enter")
-        print("mensaje enviado bien queloque")
+        print("ya esta queloque")
         await page.wait_for_timeout(1500)
         await browser.close()
-asyncio.run(main())
+        if __name__== "__main__":
+            asyncio.run(main())
